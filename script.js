@@ -3,6 +3,12 @@ const botoes = document.querySelectorAll(".choices button");
 const botoesAtaqueJ1 = document.querySelectorAll("#attack-buttons-j1 button");
 const botoesAtaqueJ2 = document.querySelectorAll("#attack-buttons-j2 button");
 
+const botaoDefesaJ1 = document.getElementById("defend-button-j1");
+const botaoNaoDefenderJ1 = document.getElementById("no-defend-button-j1");
+
+const botaoDefesaJ2 = document.getElementById("defend-button-j2");
+const botaoNaoDefenderJ2 = document.getElementById("no-defend-button-j2");
+
 const textoJ1 = document.getElementById("player1-choice");
 const textoJ2 = document.getElementById("player2-choice");
 const textoResultado = document.getElementById("winner");
@@ -23,6 +29,8 @@ let energiaJ1 = 0;
 let energiaJ2 = 0;
 
 let atacante = null;
+let defensor = null;
+let tipoDefesa = null;  // "total", "parcial" ou "nenhuma"
 
 function verificarVencedor(j1, j2) {
   if (j1 === j2) {
@@ -39,12 +47,15 @@ function verificarVencedor(j1, j2) {
   }
 }
 
-function atualizarBarraDeVida() {
-  healthJ1.style.width = vidaJ1 + "%";
-  healthJ2.style.width = vidaJ2 + "%";
+const vidaMaxJ1 = 160;
+const vidaMaxJ2 = 170;
 
-  healthJ1.style.backgroundColor = vidaJ1 > 50 ? "#0f0" : vidaJ1 > 20 ? "#ff0" : "#f00";
-  healthJ2.style.backgroundColor = vidaJ2 > 50 ? "#0f0" : vidaJ2 > 20 ? "#ff0" : "#f00";
+function atualizarBarraDeVida() {
+  healthJ1.style.width = (vidaJ1 / vidaMaxJ1 * 100) + "%";
+  healthJ2.style.width = (vidaJ2 / vidaMaxJ2 * 100) + "%";
+
+  healthJ1.style.backgroundColor = vidaJ1 > vidaMaxJ1 * 0.5 ? "#0f0" : vidaJ1 > vidaMaxJ1 * 0.2 ? "#ff0" : "#f00";
+  healthJ2.style.backgroundColor = vidaJ2 > vidaMaxJ2 * 0.5 ? "#0f0" : vidaJ2 > vidaMaxJ2 * 0.2 ? "#ff0" : "#f00";
 }
 
 function atualizarBarraEnergia() {
@@ -73,6 +84,13 @@ function esconderBotoesAtaque() {
   document.getElementById("attack-buttons-j2").style.display = "none";
 }
 
+function esconderBotoesDefesa() {
+  botaoDefesaJ1.style.display = "none";
+  botaoNaoDefenderJ1.style.display = "none";
+  botaoDefesaJ2.style.display = "none";
+  botaoNaoDefenderJ2.style.display = "none";
+}
+
 function novoJogo() {
   jogada1 = null;
   jogada2 = null;
@@ -80,10 +98,14 @@ function novoJogo() {
   textoJ2.textContent = "Jogador 2: escolha";
   textoResultado.textContent = "";
 
-  vidaJ1 = 100;
-  vidaJ2 = 100;
+  vidaJ1 = 160;
+  vidaJ2 = 170;
   energiaJ1 = 0;
   energiaJ2 = 0;
+
+  atacante = null;
+  defensor = null;
+  tipoDefesa = null;
 
   atualizarBarraDeVida();
   atualizarBarraEnergia();
@@ -93,6 +115,7 @@ function novoJogo() {
 
   setBotoesAtivos(true);
   esconderBotoesAtaque();
+  esconderBotoesDefesa();
 }
 
 botoes.forEach(botao => {
@@ -112,42 +135,116 @@ botoes.forEach(botao => {
 
       if (resultado.includes("Jogador 1 venceu")) {
         atacante = 1;
-        document.getElementById("attack-buttons-j1").style.display = "flex";
+        defensor = 2;
       } else if (resultado.includes("Jogador 2 venceu")) {
         atacante = 2;
-        document.getElementById("attack-buttons-j2").style.display = "flex";
+        defensor = 1;
       } else {
         atacante = null;
+        defensor = null;
         jogada1 = null;
         jogada2 = null;
         textoJ1.textContent = "Jogador 1: escolha";
         textoJ2.textContent = "Jogador 2: escolha";
         textoResultado.textContent += " - Próxima rodada!";
+        return;
       }
 
-      if (atacante !== null) {
-        textoResultado.textContent += " - Escolha seu ataque!";
-        setBotoesAtivos(false);
+      textoResultado.textContent += " - Oponente decide se vai defender!";
+      setBotoesAtivos(false);
+      esconderBotoesAtaque();
+      esconderBotoesDefesa();
+
+      // Mostrar botões de defesa para o defensor
+      if (defensor === 1) {
+        botaoDefesaJ1.style.display = "inline-block";
+        botaoNaoDefenderJ1.style.display = "inline-block";
+        botaoDefesaJ1.disabled = energiaJ1 < 35;
+      } else if (defensor === 2) {
+        botaoDefesaJ2.style.display = "inline-block";
+        botaoNaoDefenderJ2.style.display = "inline-block";
+        botaoDefesaJ2.disabled = energiaJ2 < 35;
       }
     }
   });
 });
 
+// Defesas Jogador 1
+botaoDefesaJ1.addEventListener("click", () => {
+  if (energiaJ1 < 35) {
+    alert("Energia insuficiente para defender!");
+    return;
+  }
+  if (energiaJ1 >= 100) {
+    tipoDefesa = "total";
+  } else {
+    tipoDefesa = "parcial";
+  }
+  energiaJ1 -= 35;
+  atualizarBarraEnergia();
+  iniciarAtaque();
+});
+
+botaoNaoDefenderJ1.addEventListener("click", () => {
+  tipoDefesa = "nenhuma";
+  iniciarAtaque();
+});
+
+// Defesas Jogador 2
+botaoDefesaJ2.addEventListener("click", () => {
+  if (energiaJ2 < 35) {
+    alert("Energia insuficiente para defender!");
+    return;
+  }
+  if (energiaJ2 >= 100) {
+    tipoDefesa = "total";
+  } else {
+    tipoDefesa = "parcial";
+  }
+  energiaJ2 -= 35;
+  atualizarBarraEnergia();
+  iniciarAtaque();
+});
+
+botaoNaoDefenderJ2.addEventListener("click", () => {
+  tipoDefesa = "nenhuma";
+  iniciarAtaque();
+});
+
+function iniciarAtaque() {
+  esconderBotoesDefesa();
+  if (atacante === 1) {
+    document.getElementById("attack-buttons-j1").style.display = "flex";
+  } else if (atacante === 2) {
+    document.getElementById("attack-buttons-j2").style.display = "flex";
+  }
+}
+
 // Ataques do Jogador 1
 botoesAtaqueJ1.forEach(botao => {
   botao.addEventListener("click", () => {
-    if (atacante !== 1) return;  // Garante que só o jogador certo ataque
+    if (atacante !== 1) return;  // Só atacante pode atacar
 
-    const dano = parseInt(botao.getAttribute("data-attack"));
+    const danoBase = parseInt(botao.getAttribute("data-attack"));
     const energiaGanha = parseInt(botao.getAttribute("data-energy")) || 0;
 
-    vidaJ2 -= dano;
+    // Aplica defesa
+    let danoFinal = danoBase;
+    if (defensor === 2) {  // Jogador 2 está defendendo
+      if (tipoDefesa === "total") {
+        danoFinal = 0;
+      } else if (tipoDefesa === "parcial") {
+        danoFinal = Math.floor(danoBase / 2);
+      }
+    }
+
+    vidaJ2 -= danoFinal;
     if (vidaJ2 < 0) vidaJ2 = 0;
 
     if (botao.classList.contains('special-attack')) {
-      energiaJ1 = 0;  // Zera ao usar especial
+      energiaJ1 = 0;
     } else {
-      energiaJ1 = Math.min(energiaJ1 + energiaGanha, 100);  // Ganha energia
+      energiaJ1 = Math.min(energiaJ1 + energiaGanha, 100);
     }
 
     atualizarBarraDeVida();
@@ -160,12 +257,21 @@ botoesAtaqueJ1.forEach(botao => {
 // Ataques do Jogador 2
 botoesAtaqueJ2.forEach(botao => {
   botao.addEventListener("click", () => {
-    if (atacante !== 2) return;  // Garante que só o jogador certo ataque
+    if (atacante !== 2) return;
 
-    const dano = parseInt(botao.getAttribute("data-attack"));
+    const danoBase = parseInt(botao.getAttribute("data-attack"));
     const energiaGanha = parseInt(botao.getAttribute("data-energy")) || 0;
 
-    vidaJ1 -= dano;
+    let danoFinal = danoBase;
+    if (defensor === 1) {  // Jogador 1 está defendendo
+      if (tipoDefesa === "total") {
+        danoFinal = 0;
+      } else if (tipoDefesa === "parcial") {
+        danoFinal = Math.floor(danoBase / 2);
+      }
+    }
+
+    vidaJ1 -= danoFinal;
     if (vidaJ1 < 0) vidaJ1 = 0;
 
     if (botao.classList.contains('special-attack')) {
@@ -184,6 +290,9 @@ botoesAtaqueJ2.forEach(botao => {
 function finalizarAtaque() {
   esconderBotoesAtaque();
   setBotoesAtivos(true);
+  tipoDefesa = null;
+  atacante = null;
+  defensor = null;
 
   if (vidaJ1 === 0 || vidaJ2 === 0) {
     textoResultado.textContent = vidaJ1 === 0 ? "Jogador 2 venceu o jogo! 🎉" : "Jogador 1 venceu o jogo! 🎉";
