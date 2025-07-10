@@ -1,62 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedra, Papel e Tesoura - TDS251TPSG</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Pedra, Papel e Tesoura - TDS251TPSG</h1>
 
-    <link rel="stylesheet" href="style.css" />
-    <title></title>
-  </head>
-  <body>
-    <h1>Pedra, Papel e Tesoura - TDS251TPSG</h1>
-  
-    <div class="jogadores">
-      <div class="jogador">
-        <img src="assets/jogador1.png" alt="Jogador 1" class="personagem">
-        <div class="vida">
-          <div class="barra" id="health-j1"></div>
-        </div>
-        <p>Jogador 1</p>
+  <div class="jogadores">
+    <div class="jogador">
+      <img src="assets/jogador1.png" alt="Jogador 1" class="personagem" />
+      <div class="vida">
+        <div class="barra" id="health-j1"></div>
       </div>
-      <div class="jogador">
-        <img src="assets/jogador2.png" alt="Jogador 2" class="personagem">
-        <div class="vida">
-          <div class="barra" id="health-j2"></div>
-        </div>
-        <p>Jogador 2</p>
+      <p>Jogador 1</p>
+    </div>
+
+    <div class="jogador">
+      <img src="assets/jogador2.png" alt="Jogador 2" class="personagem" />
+      <div class="vida">
+        <div class="barra" id="health-j2"></div>
       </div>
+      <p>Jogador 2</p>
     </div>
-  
-    <div class="choices">
-      <button data-choice="pedra">🪨</button>
-      <button data-choice="papel">📄</button>
-      <button data-choice="tesoura">✂️</button>
-    </div>
-    <div class="energy-bar-container">
-      <div id="energy-j1" class="energy-bar"></div>
-    </div>
-    
-   <!-- Ataques do Jogador 1 -->
-<div class="attacks" id="attack-buttons-j1" style="display: none;">
-  <button data-attack="10" data-energy="35">⚔️ Durandal(10)</button>
-  <button data-attack="60" data-energy="0" class="special-attack" disabled>🖼️ Orlando Furioso (60)</button>
-</div>
+  </div>
 
-<!-- Barra de energia do Jogador 2 -->
-<div class="energy-bar-container">
-  <div id="energy-j2" class="energy-bar"></div>
-</div>
-<!-- Ataques do Jogador 2 -->
-<div class="attacks" id="attack-buttons-j2" style="display: none;">
-  <button data-attack="15" data-energy="35">🐦‍⬛ Investida da peste (15)</button>
-  <button data-attack="40" data-energy="0" class="special-attack" disabled>🤢 nuvem de veneno (40)</button>
-</div>
+  <!-- Escolhas de Pedra, Papel, Tesoura -->
+  <div class="choices">
+    <button data-choice="pedra">🪨</button>
+    <button data-choice="papel">📄</button>
+    <button data-choice="tesoura">✂️</button>
+  </div>
 
-    <p id="player1-choice">Jogador 1: escolha</p>
-    <p id="player2-choice">Jogador 2: escolha</p>
-    <p id="winner"></p>
-<p id="winner"></p>
-    <script src="script.js">
-    </script>
-  </body>
+  <!-- Barras de Energia -->
+  <div class="energy-bar-container">
+    <div id="energy-j1" class="energy-bar"></div>
+  </div>
+  <div class="energy-bar-container">
+    <div id="energy-j2" class="energy-bar"></div>
+  </div>
+
+  <!-- Botões de Defesa -->
+  <button id="defend-button-j1" style="display:none;">Defender</button>
+  <button id="no-defend-button-j1" style="display:none;">Não Defender</button>
+
+  <button id="defend-button-j2" style="display:none;">Defender</button>
+  <button id="no-defend-button-j2" style="display:none;">Não Defender</button>
+
+  <!-- Ataques do Jogador 1 -->
+  <div class="attacks" id="attack-buttons-j1" style="display: none;">
+    <button data-attack="10" data-energy="35">⚔️ Durandal (10)</button>
+    <button data-attack="70" data-energy="0" class="special-attack" disabled>🖼️ Orlando Furioso (70)</button>
+  </div>
+
+  <!-- Ataques do Jogador 2 -->
+  <div class="attacks" id="attack-buttons-j2" style="display: none;">
+    <button data-attack="25" data-energy="35">🐦‍⬛ Investida da peste (25)</button>
+    <button data-attack="40" data-energy="0" class="special-attack" disabled>🤢 Nuvem de veneno (40)</button>
+  </div>
+
+  <!-- Informações das escolhas e resultado -->
+  <p id="player1-choice">Jogador 1: escolha</p>
+  <p id="player2-choice">Jogador 2: escolha</p>
+  <p id="winner"></p>
+
+  <script src="script.js"></script>
+</body>
 </html>
