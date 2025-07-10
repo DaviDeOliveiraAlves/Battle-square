@@ -1,0 +1,169 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('assets/arena.png');
+    background-size: cover;
+    background-position: center;
+  
+    color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 2rem;
+}
+.health-bars {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .player-health {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+  }
+  
+  .health-bar {
+    width: 100%;
+    height: 25px;
+    background-color: #444;
+    overflow: hidden;
+    box-shadow: inset 0 0 8px #000;
+    margin-top: 0.5rem;
+  }
+  
+  .health-fill {
+    height: 100%;
+    width: 100%;
+    background-color: #0f0;
+    transition: width 0.5s ease;
+  }
+  .energy-bar-container {
+    width: 150px;
+    height: 20px;
+    background: #333;
+    border: 2px solid #fff;
+    margin: 10px 0;
+  }
+  
+  .energy-bar {
+    width: 0%;
+    height: 100%;
+    background-color: yellow;
+    transition: width 0.3s;
+  }
+  
+  .jogadores {
+    display: flex;
+    justify-content: space-around; /* Distribui os personagens nas laterais */
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+  
+  .jogador {
+    text-align: center;
+  }
+  
+  .personagem {
+    width: 120px; /* Diminui o tamanho */
+    height: auto;
+  }
+  
+  .vida {
+    width: 150px;
+    height: 20px;
+    background-color: #333;
+    margin: 0.5rem auto;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .barra {
+    height: 100%;
+    width: 100%;
+    background-color: green;
+    transition: width 0.5s ease;
+  }
+  
+  .attack-buttons {
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  
+  .attack-buttons button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    border: 2px solid #0ff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .attack-buttons button:hover {
+    background-color: #0ff;
+    color: black;
+  }
+  
+  
+h1{
+    color: rgb(255, 255, 255);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.choices{
+    display: flex;
+    gap: 3rem;
+}
+
+button{
+    border: 5px dashed rgba(255, 252, 87, 0.966);
+    border-radius: 40px;
+    padding: 40px;
+    background-color: blue;
+    font-size: 1.5rem;
+    font-weight: 700;
+    min-width: 100px;
+    box-shadow: 0 0 8px rgb(0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 1s ease;
+    color: white;
+}
+button:hover {
+  background-color: rgb(0, 112, 103);
+  transform: rotate(720deg);
+ 
+}
+
+p{
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    min-height: 1.5rem;
+    text-align: center;
+    text-shadow: 0 0 6px blue;
+}
+
+#winner{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    color: #f0f0f0;
+    text-shadow: 
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 30px #0ff;
+}
