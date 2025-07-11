@@ -7,13 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Pedra, Papel e Tesoura - TDS251TPSG</h1>
+  <h1>Pedra, Papel e Tesoura</h1>
 
   <div class="jogadores">
     <div class="jogador">
       <img src="assets/jogador1.png" alt="Jogador 1" class="personagem" />
       <div class="vida">
         <div class="barra" id="health-j1"></div>
+      </div>
+      <div class="energy-bar-container">
+        <div id="energy-j1" class="energy-bar"></div>
       </div>
       <p>Jogador 1</p>
     </div>
@@ -22,6 +25,9 @@
       <img src="assets/jogador2.png" alt="Jogador 2" class="personagem" />
       <div class="vida">
         <div class="barra" id="health-j2"></div>
+      </div>
+      <div class="energy-bar-container">
+        <div id="energy-j2" class="energy-bar"></div>
       </div>
       <p>Jogador 2</p>
     </div>
@@ -34,20 +40,13 @@
     <button data-choice="tesoura">✂️</button>
   </div>
 
-  <!-- Barras de Energia -->
-  <div class="energy-bar-container">
-    <div id="energy-j1" class="energy-bar"></div>
-  </div>
-  <div class="energy-bar-container">
-    <div id="energy-j2" class="energy-bar"></div>
-  </div>
-
   <!-- Botões de Defesa -->
-  <button id="defend-button-j1" style="display:none;">Defender</button>
-  <button id="no-defend-button-j1" style="display:none;">Não Defender</button>
-
-  <button id="defend-button-j2" style="display:none;">Defender</button>
-  <button id="no-defend-button-j2" style="display:none;">Não Defender</button>
+  <div class="defense-buttons">
+    <button id="defend-button-j1" style="display:none;">Defender</button>
+    <button id="no-defend-button-j1" style="display:none;">Não Defender</button>
+    <button id="defend-button-j2" style="display:none;">Defender</button>
+    <button id="no-defend-button-j2" style="display:none;">Não Defender</button>
+  </div>
 
   <!-- Ataques do Jogador 1 -->
   <div class="attacks" id="attack-buttons-j1" style="display: none;">

@@ -5,7 +5,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('assets/arena.jpg');
+    url('assets/arena.png');
   background-size: cover;
   background-position: center;
 
@@ -52,14 +52,16 @@ body {
   height: 20px;
   background: #333;
   border: 2px solid #fff;
-  margin: 10px 0;
+  border-radius: 5px;
+  margin: 0.5rem auto; /* Centraliza igual à barra de vida */
+  overflow: hidden;
 }
 
 .energy-bar {
   width: 0%;
   height: 100%;
   background-color: yellow;
-  transition: width 0.3s;
+  transition: width 0.3s ease;
 }
 
 .jogadores {
@@ -77,7 +79,7 @@ body {
 }
 
 .personagem {
-  width: 120px;
+  width: 170px;
   height: auto;
 }
 
@@ -132,10 +134,10 @@ h1 {
 }
 
 button {
-  border: 5px dashed rgba(255, 252, 87, 0.966);
+  border:none;
   border-radius: 40px;
   padding: 40px;
-  background-color: blue;
+  background-color: rgb(0, 0, 0);
   font-size: 1.5rem;
   font-weight: 700;
   min-width: 100px;
@@ -171,7 +173,7 @@ p {
   margin-top: 1.5rem;
   color: #f0f0f0;
   text-shadow:
-    0 0 10px #0ff,
-    0 0 20px #0ff,
+    0 0 10px rgb(0, 0, 0),
+    0 0 20px rgb(0, 0, 0),
     0 0 30px #0ff;
 }
